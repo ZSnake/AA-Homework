@@ -11,7 +11,7 @@ using RestSharp;
 
 namespace AAHomework
 {
-    class Program
+    class OtraCosa
     {
         static void Main(string[] args)
         {
