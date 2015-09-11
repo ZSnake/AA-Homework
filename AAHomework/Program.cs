@@ -15,7 +15,7 @@ namespace AAHomework
     {
         static void Main(string[] args)
         {
-            for (int i = 0; i < 20; i++)
+            for (int j = 0; j < 20; j++)
             {
                 //Getting the values into a deserialized object
                 var client = new RestClient("http://internal-comfybuffalo-1-dev.apphb.com/");
