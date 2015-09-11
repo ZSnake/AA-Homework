@@ -20,7 +20,7 @@ namespace AAHomework
             var guid = Guid.NewGuid();
             var response = client.Execute(new RestRequest("/values/" + guid, Method.GET));
             var deserializedResponse = JsonConvert.DeserializeObject<AcklenResponse>(response.Content);
-            
+
             //Sorting the words in alphabetical order
             deserializedResponse.Words.Sort();
 
@@ -28,15 +28,36 @@ namespace AAHomework
             var nwList = new List<string>();
             foreach (var word in deserializedResponse.Words)
             {
-                int cont = 0;
-                var initialFibIndex = Math.Round(deserializedResponse.StartingFibonacciNumber);
                 var builder = new StringBuilder(word);
+                //Shifting the vowels to the right
+                if (builder[word.Length - 1] == 'a' && builder[word.Length - 1] == 'e' && builder[word.Length - 1] == 'i' && builder[word.Length - 1] == 'o' && builder[word.Length - 1] == 'u')
+                {
+                    var temp = word[0];
+                    builder[0] = word[word.Length - 1];
+                    builder[word.Length - 1] = temp;
+                }
+
+                for (int i = word.Length - 1; i >= 0 ; i--)
+                {
+                    if (builder[i] == 'a' || builder[i] == 'e' || builder[i] == 'i' || builder[i] == 'o' || builder[i] == 'u')
+                    {
+                        var temp = word[i + 1];
+                        builder[i + 1] = word[i];
+                        builder[i] = temp;
+                    }
+                }
+
+                
+
+                int cont = 0;
+                var initialFibIndex = (int)Math.Round(InverseFibonacci(deserializedResponse.StartingFibonacciNumber));
+                
                 for (int i = 0; i < word.Length; i++)
                 {
-                    if (word[i] != 'a' && word[i] != 'e' && word[i] != 'i' && word[i] != 'o' && word[i] != 'u')
+                    if (builder[i] != 'a' && builder[i] != 'e' && builder[i] != 'i' && builder[i] != 'o' && builder[i] != 'u')
                     {
                         //Alternating between upper and lower case if the character is a consonant
-                        if (cont%2 == 0)
+                        if (cont % 2 == 0)
                         {
                             builder[i] = Char.ToUpper(word[i]);
                         }
@@ -46,7 +67,8 @@ namespace AAHomework
                     {
                         //getting the fibonacci index from the response round so it cant give the N-th fibonacci value and can be assigned to the char 
                         var fibonacciValue = Fibonacci((int)initialFibIndex);
-                       // builder[i] = Convert.ToChar(fibonacciValue);
+                        builder.Remove(i, 1);
+                        builder.Insert(i, fibonacciValue);
                         initialFibIndex++;
                     }
                 }
@@ -66,17 +88,18 @@ namespace AAHomework
             {
                 var currentWord = deserializedResponse.Words[i];
                 var previousWord = deserializedResponse.Words[i - 1];
-                nwString += (int) previousWord[0] + currentWord;
+                nwString += (int)previousWord[0] + currentWord;
             }
 
             var base64String = Convert.ToBase64String(Encoding.UTF8.GetBytes(nwString));
 
             var postRestRequest = new RestRequest("/values/" + guid, Method.POST);
+            postRestRequest.RequestFormat = DataFormat.Json;
             postRestRequest.AddBody(new
                                     {
                                         EncodedValue = base64String,
-                                	    EmailAddress = "viktor@acklenavenue.com",
-                                	    WebhookUrl=  "https://github.com/ZSnake"
+                                        EmailAddress = "viktor@acklenavenue.com",
+                                        WebhookUrl = "https://github.com/ZSnake"
                                     });
             var postResponse = client.Execute(postRestRequest);
             Console.Read();
@@ -101,7 +124,7 @@ namespace AAHomework
 
         public static double InverseFibonacci(double F)
         {
-            return (Math.Log(F, Phi())*Math.Sqrt(5)) + 0.5;
+            return Math.Floor(((Math.Log(F, Math.Sqrt(5)) / Math.Log(Phi()) ) + 1 / 2));
         }
 
         public static string Base64Encode(string plainText)

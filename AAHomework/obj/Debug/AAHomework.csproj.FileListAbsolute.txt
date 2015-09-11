@@ -11,3 +11,10 @@ c:\users\snake\documents\visual studio 2012\Projects\AAHomework\AAHomework\obj\D
 D:\AcklenProjects\AAHomework\AAHomework\bin\Debug\AAHomework.exe.config
 D:\AcklenProjects\AAHomework\AAHomework\obj\Debug\AAHomework.exe
 D:\AcklenProjects\AAHomework\AAHomework\obj\Debug\AAHomework.pdb
+D:\AcklenProjects\AAHomework\AAHomework\bin\Debug\AAHomework.exe
+D:\AcklenProjects\AAHomework\AAHomework\bin\Debug\AAHomework.pdb
+D:\AcklenProjects\AAHomework\AAHomework\bin\Debug\Newtonsoft.Json.dll
+D:\AcklenProjects\AAHomework\AAHomework\bin\Debug\RestSharp.dll
+D:\AcklenProjects\AAHomework\AAHomework\bin\Debug\Newtonsoft.Json.xml
+D:\AcklenProjects\AAHomework\AAHomework\bin\Debug\RestSharp.xml
+D:\AcklenProjects\AAHomework\AAHomework\obj\Debug\AAHomework.csprojResolveAssemblyReference.cache
