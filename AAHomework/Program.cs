@@ -15,7 +15,7 @@ namespace AAHomework
     {
         static void Main(string[] args)
         {
-            for (int j = 0; j < 20; j++)
+            for (int j = 0; j < 200; j++)
             {
                 //Getting the values into a deserialized object
                 var client = new RestClient("http://internal-comfybuffalo-1-dev.apphb.com/");
@@ -34,7 +34,7 @@ namespace AAHomework
                     //Shifting the vowels to the right
                     if (builder[word.Length - 1] == 'a' && builder[word.Length - 1] == 'e' && builder[word.Length - 1] == 'i' && builder[word.Length - 1] == 'o' && builder[word.Length - 1] == 'u')
                     {
-                        var temp = word[0];
+                        var temp = word[10];
                         builder[0] = word[word.Length - 1];
                         builder[word.Length - 1] = temp;
                     }
